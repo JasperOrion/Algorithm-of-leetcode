@@ -16,18 +16,29 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-    int strStr(string haystack, string needle) {
-        int m = haystack.size(), n = needle.size();
-        //*byd越界
-        for (int i = 0; i <= m - n; i++) {
-            int p1 = i;
-            int p2 = 0;
-            while (haystack[p1] == needle[p2] && p2 < n) {
-                p1++;
-                p2++;
-            }
-            if (p2 == n)
-                return i;
+    int strStr(string main, string pattern) {
+        int n = main.size(), m = pattern.size();
+        if (m == 0)
+            return 0;
+        if (n < m)
+            return -1;
+        // 构造 pi（前缀函数）
+        vector<int> pi(m, 0);
+        for (int i = 1, len = 0; i < m; ++i) {
+            while (len > 0 && pattern[i] != pattern[len])
+                len = pi[len - 1];
+            if (pattern[i] == pattern[len])
+                pi[i] = ++len;
+        }
+        // 在主串中匹配
+        // len,已匹配的 pattern 长度
+        for (int i = 0, len = 0; i < n; ++i) {
+            while (len > 0 && main[i] != pattern[len])
+                len = pi[len - 1];
+            if (main[i] == pattern[len])
+                ++len;
+            if (len == m)
+                return i - m + 1;
         }
         return -1;
     }
