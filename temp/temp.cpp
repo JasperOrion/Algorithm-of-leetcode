@@ -1,6 +1,5 @@
 #include <iostream>
 int main() {
-    int d = -1 % 4;
-    std::cout << d;
+    std::cout << "你好" << std::endl;
     return 0;
 }
