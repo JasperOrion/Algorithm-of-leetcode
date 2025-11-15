@@ -22,6 +22,15 @@ foreach(source_file ${MAIN_SOURCES})
     set(target_name "${unique_prefix}_${target_name}")          # 组合唯一目标名
 
     # 生成可执行文件并链接公共库
-    add_executable(${target_name} ${source_file})
-    target_link_libraries(${target_name} common)
+    # 过滤掉包含非法字符的 target_name（如中文、空格等）
+    # 将所有非字母数字和下划线的字符替换为下划线，确保 target 名称合法
+    string(REGEX REPLACE "[^A-Za-z0-9_]" "_" target_name "${target_name}")
+    string(REGEX MATCH "^[A-Za-z0-9_]+$" valid_target_name "${target_name}")
+    if(valid_target_name)
+        add_executable(${target_name} ${source_file})
+        target_link_libraries(${target_name} common)
+    else()
+        message(WARNING "Skip target '${target_name}' due to invalid characters.")
+    endif()
+    # target_link_libraries(${target_name} common)
 endforeach()
