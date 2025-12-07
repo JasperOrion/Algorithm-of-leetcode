@@ -1,8 +1,8 @@
 /*
- * @lc app=leetcode.cn id=459 lang=cpp
- * @lcpr version=30203
+ * @lc app=leetcode.cn id=344 lang=cpp
+ * @lcpr version=30304
  *
- * [459] 重复的子字符串
+ * [344] 反转字符串
  */
 
 #include "../common/ListNode.cpp"
@@ -16,10 +16,13 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-    bool repeatedSubstringPattern(string s) {
-        for (int i = 0; i < s.size(); i++) {
-            int a = i;
-            while ()
+    void reverseString(vector<char> &s) {
+        int size = s.size() - 1;
+        int left = 0, right = size;
+        while (left < right) {
+            int temp = s[left];
+            s[left++] = s[right];
+            s[right--] = temp;
         }
     }
 };
@@ -32,15 +35,11 @@ int main() {
 
 /*
 // @lcpr case=start
-// "abab"\n
+// ["h","e","l","l","o"]\n
 // @lcpr case=end
 
 // @lcpr case=start
-// "aba"\n
-// @lcpr case=end
-
-// @lcpr case=start
-// "abcabcabcabc"\n
+// ["H","a","n","n","a","h"]\n
 // @lcpr case=end
 
  */
